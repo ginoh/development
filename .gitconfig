@@ -1,0 +1,7 @@
+[user]
+	name = ginoh
+	email = s.ginoh@gmail.com
+[core]
+	editor = emacs
+[alias]
+	tree = log --graph --all --pretty=format:\"%x09%C(green)%an%Creset%x09%C(yellow)%h%Creset %C(red)%d%Creset %s\"
