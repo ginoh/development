@@ -1,43 +1,48 @@
-(require 'package)
-;; MELPA
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-;; MELPA-stable
-;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-;; Maramalable
-;(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
-;; Org
-;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t))
-;; 初期化
-(package-initialize)
-
-;; global
-(global-set-key (kbd "C-h") `delete-backward-char)
-(global-set-key (kbd "M-g") `goto-line)
-(global-set-key (kbd "C-c t") `toggle-truncate-lines)
-
-;; basic
-(show-paren-mode t)
-(setq-default column-number-mode t)
-(setq-default truncate-partial-width-windows t)
-
-;; indent
+(require 'package)                                                                                                              
+                                                                                                                                
+;; MELPA                                                                                                                        
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)                                                     
+                                                                                                                                
+;; package init                                                                                                                 
+(package-initialize)                                                                                                            
+                                                                                                                                
+;; theme                                                                                                                        
+(load-theme 'manoj-dark t)                                                                                                      
+                                                                                                                                
+;; global                                                                                                                       
+(global-set-key "\C-h" 'delete-backward-char)                                                                                   
+(global-set-key "\M-g" 'goto-line)                                                                                              
+;; (global-set-key "\C-c t" 'toggle-truncate-lines)                                                                             
+                                                                                                                                
+;; indent                                                                                                                       
+(setq-default indent-tabs-mode nil)                                                                                             
 (setq-default tab-width 4)
-(setq tab-stop-list
-  '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))
 
-(setq-default indent-tabs-mode nil)
+;; bold bracket                                                                                                                 
+(show-paren-mode t)                                                                                                             
+                                                                                                                                
+;; display columns                                                                                                              
+(column-number-mode t)                                                                                                          
+                                                                                                                                
+;;                                                                                                                              
+(setq-default truncate-lines t)                                                                                                 
+(setq truncate-lines t)                                                                                                         
+(setq truncate-partial-width-windows t)
 
-;; c
-(setq-default c-basic-offset 4)
-(setq-default c-default-style "bsd")
+;; js-indent                                                                                                                    
+(setq js-indent-level 2)                                                                                                        
+                                                                                                                                
+(custom-set-variables                                                                                                           
+ ;; custom-set-variables was added by Custom.                                                                                   
+ ;; If you edit it by hand, you could mess it up, so be careful.                                                                
+ ;; Your init file should contain only one such instance.                                                                       
+ ;; If there is more than one, they won't work right.                                                                           
+ '(package-selected-packages (quote (docker-compose-mode))))                                                                    
+(custom-set-faces                                                                                                               
+ ;; custom-set-faces was added by Custom.                                                                                       
+ ;; If you edit it by hand, you could mess it up, so be careful.                                                                
+ ;; Your init file should contain only one such instance.                                                                       
+ ;; If there is more than one, they won't work right.                                                                           
+ )
 
-;; php-mode
-(autoload 'php-mode "php-mode" "Major mode for editing php code." t)
-(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
-(add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
-(setq-default php-mode-force-pear t)
-
-;; js2-mode
-(setq-default js-indent-level 2)
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+ 
