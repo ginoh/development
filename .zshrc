@@ -22,8 +22,11 @@ elif [ "$(uname)" = "Darwin" ]; then
     alias ls="ls -a -F -G"
 
     # anyenv for Mac
-    if brew list anyenv > /dev/null 2>&1; then
-	eval "$(anyenv init -)"
+    if type anyenv > /dev/null 2>&1; then
+	    #eval "$(anyenv init -)"
+        if [ -f $HOME/.anyenvrc ]; then
+            source $HOME/.anyenvrc
+        fi
     fi
 fi
 
@@ -63,8 +66,10 @@ alias gclist="gcloud compute instances list"
 alias gconfig="gcloud config"
 
 ## ghq
-alias ghq-root="cd $(ghq root)"
-alias ghq-list="ghq list"
+if type ghq > /dev/null 2>&1; then
+    alias ghq-root="cd $(ghq root)"
+    alias ghq-list="ghq list"
+fi
 
 # global alias
 alias -g L='| less'
@@ -78,7 +83,7 @@ alias -g S='| sort'
 
 # PROMPT
 HISTSIZE=1000 HISTFILE=~/.zhistory SAVEHIST=1000
-PROMPT=$'\n[%~]()\n(%D{%Y-%m-%dT%T%z})\n{%F{cyan}%n%f@%F{green}%m%f}%# '
+PROMPT=$'\n[%~]\n(%D{%Y-%m-%dT%T%z})\n{%F{cyan}%n%f@%F{green}%m%f}%# '
 
 # zsh option
 setopt auto_cd auto_pushd auto_remove_slash auto_name_dirs
