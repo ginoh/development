@@ -65,12 +65,6 @@ alias gscp="gcloud compute scp"
 alias gclist="gcloud compute instances list"
 alias gconfig="gcloud config"
 
-## ghq
-if type ghq > /dev/null 2>&1; then
-    alias ghq-root="cd $(ghq root)"
-    alias ghq-list="ghq list"
-fi
-
 # global alias
 alias -g L='| less'
 alias -g G='| grep'
@@ -94,6 +88,25 @@ unsetopt prompt_cr
 
 # function
 function chpwd() { ls }
+
+# ghq && fzf
+# https://github.com/junegunn/fzf
+if type ghq > /dev/null 2>&1 && 
+    type fzf > /dev/null 2>&1; then
+    function ghq-select() {
+        if [ "root" = $* ]; then
+            cd $(ghq root)
+        else
+            local repos=$(ghq list $*)
+            if [ -z $repos ];then
+                echo "No candidates found"
+            else
+                cd $(ghq root)/$(echo $repos | fzf)
+            fi
+
+        fi
+    }
+fi
 
 # zsh binding keys
 bindkey -e
