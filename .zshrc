@@ -94,14 +94,14 @@ function chpwd() { ls }
 if type ghq > /dev/null 2>&1 && 
     type fzf > /dev/null 2>&1; then
     function ghq-select() {
-        if [ "root" = $* ]; then
+        if [ "root" = $1 ]; then
             cd $(ghq root)
         else
             local repos=$(ghq list $*)
-            if [ -z $repos ];then
+            if [ -z "$repos" ];then
                 echo "No candidates found"
             else
-                cd $(ghq root)/$(echo $repos | fzf)
+                cd $(ghq root)/$(echo "$repos" | fzf)
             fi
 
         fi
