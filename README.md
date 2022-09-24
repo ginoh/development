@@ -32,15 +32,19 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.9.1+1, mixed mode)
 ### VSCode
 https://code.visualstudio.com/
 
-利用している Extention (2019/07)
-* C/C++
+最低これだけは利用する Extention (2022/09)
+* Cuelang
 * Docker
 * Emacs Friendly Keymap
 * ESLint
 * GitLens
 * Go
+* HashiCorp Terraform
+* IntelliCode
 * Kubernetes
 * Path Intellisense
+* Prettier
+* Remote Development
 * vscode-ghq
 * YAML
 * zenkaku
@@ -68,8 +72,8 @@ https://docs.docker.com/install/
 https://kubernetes.io/ja/docs/setup/
 
 基本的に、
-* 学習・検証するとき => kind、Minikube を利用
-* Public Cloud で何かしたいとき => GKE (GCP)
+* 学習・検証するとき => Minikube (主に)、kind (たまに) を利用
+* Public Cloud で何かしたいとき => GKE
 * たまに kubeadm でクラスタ構築
 
 ## サーバ環境構築

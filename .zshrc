@@ -9,8 +9,13 @@ if [ "$(uname)" = "Linux" ]; then
 
     # anyenv for Linux
     if [ -e ${HOME}/.anyenv/bin ]; then
-	export PATH=${HOME}/.anyenv/bin:${PATH}
-	eval "$(anyenv init -)"
+	    export PATH=${HOME}/.anyenv/bin:${PATH}
+        # faster startup
+        if [ -f $HOME/.anyenv-rc.sh ]; then
+            source $HOME/.anyenv-rc.sh
+        else
+            eval "$(anyenv init -)"
+        fi
     fi
 elif [ "$(uname)" = "Darwin" ]; then
     #env
@@ -21,28 +26,28 @@ elif [ "$(uname)" = "Darwin" ]; then
     # alias
     alias ls="ls -a -F -G"
 
-    # anyenv for Mac
+    # # anyenv for Mac
     if type anyenv > /dev/null 2>&1; then
-	    #eval "$(anyenv init -)"
-        if [ -f $HOME/.anyenvrc ]; then
-            source $HOME/.anyenvrc
+        # faster startup
+        if [ -f $HOME/.anyenv-rc.sh ]; then
+            source $HOME/.anyenv-rc.sh
+        else
+            eval "$(anyenv init -)"
         fi
     fi
 fi
 
 ### Go
-if go version > /dev/null 2>&1; then
-    export GO111MODULE="on"
-    if [ -n GOPATH ]; then
-            export PATH=${GOPATH}/bin:${PATH}
-    fi
+if [ -n GOPATH ]; then
+    export PATH=${PATH}:${GOPATH}/bin
 fi
+
 
 ### common env
 export PATH=${HOME}/bin:${PATH}
 
 ### krew
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH=${KREW_ROOT:-$HOME/.krew}/bin:$PATH
 
 #### alias
 alias ll="ls -l"
@@ -57,13 +62,18 @@ alias tml="tmux ls"
 ## k8s
 alias kc="kubectl"
 alias kctx="kubectx"
-## python
-alias python="python3"
+alias kb="kubebuilder"
+# ## python
+# alias python="python3"
 ## gcp
 alias gssh="gcloud compute ssh"
 alias gscp="gcloud compute scp"
 alias gclist="gcloud compute instances list"
 alias gconfig="gcloud config"
+
+## mysql5.7
+alias mysql57="/usr/local/opt/mysql-client@5.7/bin/mysql"
+
 
 # global alias
 alias -g L='| less'
@@ -77,7 +87,13 @@ alias -g S='| sort'
 
 # PROMPT
 HISTSIZE=1000 HISTFILE=~/.zhistory SAVEHIST=1000
-PROMPT=$'\n[%~]\n(%D{%Y-%m-%dT%T%z})\n{%F{cyan}%n%f@%F{green}%m%f}%# '
+
+## The following is a command to check the color.
+## for c in {000..255}; do echo -n "\e[38;5;${c}m $c" ; [ $(($c%16)) -eq 15 ] && echo;done;echo
+### for light
+PROMPT=$'\n[%~]\n(%D{%Y-%m-%dT%T%z})\n{%F{033}%n%f@%F{034}%m%f}%# '
+### for dark
+#PROMPT=$'\n[%~]\n(%D{%Y-%m-%dT%T%z})\n{%F{cyan}%n%f@%F{green}%m%f}%# '
 
 # zsh option
 setopt auto_cd auto_pushd auto_remove_slash auto_name_dirs
@@ -88,6 +104,7 @@ unsetopt prompt_cr
 
 # function
 function chpwd() { ls }
+function anyenv-init() { eval "$(anyenv init -)" }
 
 # ghq && fzf
 # https://github.com/junegunn/fzf
@@ -127,4 +144,3 @@ autoload -U compinit && compinit
 
 # zmv
 autoload -U zmv
-
