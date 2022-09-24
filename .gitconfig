@@ -9,3 +9,5 @@
     ui = auto
 [diff "sopsdiffer"]
 	textconv = sops -d
+[pull]
+	ff = only
